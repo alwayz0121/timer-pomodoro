@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pomodoro/widgets/timer_selector.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -71,9 +72,22 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           Flexible(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                alignment: Alignment.center,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TimerSelector(time: '10\nsec'),
+                      TimerSelector(time: '10\nmin'),
+                      TimerSelector(time: '20\nmin'),
+                    ]),
+              )),
+          Flexible(
             flex: 1,
             child: Container(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               child: Text(
                 format(totalSeconds),
                 style: TextStyle(
