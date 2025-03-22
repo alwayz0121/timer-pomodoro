@@ -12,10 +12,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // 시작 시간 초기화
-  static const pomodoroSetTimes = 10;
+  static int pomodoroSetTimes = 10;
   int totalSeconds = pomodoroSetTimes;
   bool isRunning = false;
   int totalPomodoros = 0;
+
+  late int newTimes;
 
   // 버튼 누를 때 동작. 그 전까지는 late 처리해서 나중에 초기화
   late Timer timer;
@@ -58,6 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
     timer.cancel();
   }
 
+  void onTimerClick(newTimes) {
+    setState(() {
+      totalSeconds = newTimes;
+      pomodoroSetTimes = newTimes;
+    });
+  }
+
   //date format
   String format(int seconds) {
     var duration = Duration(seconds: seconds);
@@ -79,9 +88,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      TimerSelector(time: '10\nsec'),
-                      TimerSelector(time: '10\nmin'),
-                      TimerSelector(time: '20\nmin'),
+                      TimerSelector(
+                        time: '10\nsec',
+                        onTimerClick: () => onTimerClick(10),
+                      ),
+                      TimerSelector(
+                        time: '10\nmin',
+                        onTimerClick: () => onTimerClick(60 * 10),
+                      ),
+                      TimerSelector(
+                        time: '20\nmin',
+                        onTimerClick: () => onTimerClick(60 * 20),
+                      ),
                     ]),
               )),
           Flexible(
